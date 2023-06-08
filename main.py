@@ -2,13 +2,12 @@ from ingredients import menu, resources
 from replit import clear 
 from logo import logo
 
-# variables with resources 
+# variables with resources from ingredients.py
 water = resources["water"]
 coffee = resources["coffee"] 
 milk = resources["milk"] 
 
-
-
+# checks if there are enough ingredients to make a cofee
 def check_sufficient(w, c, m = 0):
   if w <= water and c <= coffee and m <= milk:
     return True 
@@ -24,6 +23,7 @@ def insert_coins():
   return total
   
 
+# main function
 def coffee_machine(type):
   global water 
   global coffee 
@@ -32,7 +32,7 @@ def coffee_machine(type):
   
   if type:
     user_coins = insert_coins()
-    
+# checks if user has put enough money and reduces amount ingredients from resources    
     if user_coins >= costs:
       if check_sufficient(menu[type]["ingredients"]["water"], menu[type]["ingredients"]["coffee"]):
         change = round(user_coins - menu[type]["cost"], 2)
@@ -42,7 +42,7 @@ def coffee_machine(type):
         print(f"Here is your {type} with {change} change.") 
         another = input("Would you like another coffee? Type 'y' or 'n'") 
         clear()
-
+# checks if user wants to continue 
         if another == "y":
           return True
         elif another == "n":
@@ -63,13 +63,16 @@ def coffee_machine(type):
       elif another == "n":
         return False
 
-
+# loop that works until user decides to not to order nother coffee
 run = True
 while run:
   print(logo) 
+# if user wants to see resources it will asign to the variable resor
   resor = input("Would you like to see resources? Type 'y' or 'n' ")
   if resor == "y":
     print(f"Water = {water}\ncoffee = {coffee}\nmilk = {milk}")
+# coffee_type has an  answer from user what coffee they want to order
   coffee_type = input("What would you like? (espresso, latte, cappuccino)") 
   print("Quarters = $0.25, dimes = $0.10, nickels = $0.05, dimes = $ 0.01")
+# variable runs coffee_machine function and has value of True or False depends what the function will return  
   run = coffee_machine(coffee_type)
